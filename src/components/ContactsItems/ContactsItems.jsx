@@ -1,14 +1,14 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { contactSlicer } from 'redux/contactSlicer';
+import {getContacts, getFilter} from "redux/selectors"
 
 import css from "./ContactsItems.module.css"
 
 export const ContactsItems = () => {
     const dispatch = useDispatch()
 
-    const contacts = useSelector(state => state.contacts)
-
-    const filter = useSelector(state => state.filter)
+    const {contacts} = useSelector(getContacts)
+    const filter = useSelector(getFilter)
 
     const filteredContacts = contacts.filter(contact =>
         contact.name.toLowerCase().includes(filter.toLowerCase()))

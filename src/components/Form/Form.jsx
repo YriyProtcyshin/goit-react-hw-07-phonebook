@@ -11,8 +11,7 @@ export const Form = () => {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data, nanoid())
+    const onSubmit = (data) => {        
         const newContact = {id: nanoid(), name: data.name, number: data.number }
         dispatch(contactSlicer.actions.addContact(newContact))
         reset()
