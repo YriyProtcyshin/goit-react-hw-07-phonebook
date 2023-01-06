@@ -23,8 +23,7 @@ export const contactSlicer = createSlice({
   },
 });
 
-export const addContact = contactSlicer.actions.addContact;
-export const removeContact = contactSlicer.actions.removeContact;
+export const { addContact, removeContact } = contactSlicer.actions;
 
 // Persist
 const persistConfig = {
