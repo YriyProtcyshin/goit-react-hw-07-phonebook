@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { contactSlicer } from 'redux/contactSlicer';
+import { removeContact } from 'redux/contactSlicer';
 import {getContacts, getFilter} from "redux/selectors"
-
 import css from "./ContactsItems.module.css"
 
 export const ContactsItems = () => {
@@ -14,7 +13,7 @@ export const ContactsItems = () => {
         contact.name.toLowerCase().includes(filter.toLowerCase()))
 
     const deleteContact = (id) => {
-        dispatch(contactSlicer.actions.removeContact(id))
+        dispatch(removeContact(id))
     }
 
     return (
