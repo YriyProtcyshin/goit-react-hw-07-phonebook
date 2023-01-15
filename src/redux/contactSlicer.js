@@ -8,7 +8,7 @@ export const contactsApi = createApi({
   }),
   endpoints: builder => ({
     getAllContacts: builder.query({
-      query: () => `/contacts`,
+      query: () => `contacts`,
     }),
   }),
 });
