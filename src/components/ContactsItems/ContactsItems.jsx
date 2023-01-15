@@ -1,15 +1,16 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useGetAllContactsQuery } from 'redux/contactSlicer';
 
-import { getContacts, getFilter } from 'redux/selectors';
 import css from './ContactsItems.module.css';
 
 export const ContactsItems = () => {
-  const dispatch = useDispatch();
+  const { data } = useGetAllContactsQuery();
 
-  console.log(dispatch);
+  const contacts = [];
+  const filter = '';
+  console.log(data);
 
-  const { contacts } = useSelector(getContacts);
-  const filter = useSelector(getFilter);
+  //   const { contacts } = useSelector(getContacts);
+  //   const filter = useSelector(getFilter);
 
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
