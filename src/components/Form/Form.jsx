@@ -1,14 +1,18 @@
 import { useForm } from 'react-hook-form';
 import css from './Form.module.css';
-import { useAddContactMutation, useGetAllContactsQuery } from 'redux/contactSlicer';
+import {
+  useAddContactMutation,
+  useGetAllContactsQuery,
+} from 'redux/contactSlicer';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const Form = () => {
-
   const [addContact, { isLoading }] = useAddContactMutation();
-  const { data } = useGetAllContactsQuery()
-  
-  console.log(data)
+  const { data } = useGetAllContactsQuery();
+
+  if (isLoading) {
+    console.log(data);
+  }
 
   const {
     register,
@@ -17,16 +21,17 @@ export const Form = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = ({ name, number }) => { 
-    
-    const searchName = data.find(item => item.name.toLowerCase() === name.toLowerCase())
+  const onSubmit = ({ name, number }) => {
+    const searchName = data.find(
+      item => item.name.toLowerCase() === name.toLowerCase()
+    );
 
     if (searchName) {
       Notify.failure('This name alredy in contacts!');
-      return
+      return;
     }
 
-    addContact({ name, number })
+    addContact({ name, number });
     reset();
   };
 
@@ -49,7 +54,7 @@ export const Form = () => {
         {...register('number', {
           required: 'Phone number is required',
           minLength: 8,
-          maxLength: 10,          
+          maxLength: 10,
         })}
       />
       <p className={css.errorMessage}>{errors.number?.message}</p>
