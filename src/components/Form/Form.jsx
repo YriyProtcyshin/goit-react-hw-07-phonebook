@@ -7,12 +7,8 @@ import {
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const Form = () => {
-  const [addContact, { isLoading }] = useAddContactMutation();
+  const [addContact] = useAddContactMutation();
   const { data } = useGetAllContactsQuery();
-
-  if (isLoading) {
-    console.log(data);
-  }
 
   const {
     register,
@@ -30,7 +26,6 @@ export const Form = () => {
       Notify.failure('This name alredy in contacts!');
       return;
     }
-
     addContact({ name, number });
     reset();
   };
@@ -53,7 +48,6 @@ export const Form = () => {
         className={css.field}
         {...register('number', {
           required: 'Phone number is required',
-
           minLength: {
             value: 8,
             message: 'Phone number must be between 8 and 10 numbers ',
