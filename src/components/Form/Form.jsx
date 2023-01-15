@@ -2,11 +2,7 @@ import { useForm } from 'react-hook-form';
 import css from './Form.module.css';
 import { nanoid } from 'nanoid';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
-
 export const Form = () => {
-  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
@@ -14,18 +10,11 @@ export const Form = () => {
     formState: { errors },
   } = useForm();
 
-  const { contacts } = useSelector(state => state.contacts);
-
   const onSubmit = ({ name, number }) => {
     const newContact = { id: nanoid(), name, number };
-    const isNameInContacts = contacts.find(contact => contact.name === name);
 
-    if (isNameInContacts) {
-      Notify.failure(`${name} is alredy in contacts`);
-      return;
-    }
     console.log(newContact);
-    dispatch();
+
     reset();
   };
 
