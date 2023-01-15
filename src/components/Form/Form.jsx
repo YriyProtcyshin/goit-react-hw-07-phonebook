@@ -1,8 +1,15 @@
 import { useForm } from 'react-hook-form';
 import css from './Form.module.css';
-import { nanoid } from 'nanoid';
+import { useAddContactMutation, useGetAllContactsQuery } from 'redux/contactSlicer';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 export const Form = () => {
+
+  const [addContact, { isLoading }] = useAddContactMutation();
+  const { data } = useGetAllContactsQuery()
+  
+  console.log(data)
+
   const {
     register,
     handleSubmit,
@@ -10,11 +17,16 @@ export const Form = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = ({ name, number }) => {
-    const newContact = { id: nanoid(), name, number };
+  const onSubmit = ({ name, number }) => { 
+    
+    const searchName = data.find(item => item.name.toLowerCase() === name.toLowerCase())
 
-    console.log(newContact);
+    if (searchName) {
+      Notify.failure('This name alredy in contacts!');
+      return
+    }
 
+    addContact({ name, number })
     reset();
   };
 
@@ -36,11 +48,12 @@ export const Form = () => {
         className={css.field}
         {...register('number', {
           required: 'Phone number is required',
-          minLength: 6,
-          maxLength: 12,
+          minLength: 8,
+          maxLength: 10,          
         })}
       />
       <p className={css.errorMessage}>{errors.number?.message}</p>
+
       <button type="submit">Add contact</button>
     </form>
   );

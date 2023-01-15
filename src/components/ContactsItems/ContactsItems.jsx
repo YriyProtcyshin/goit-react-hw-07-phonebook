@@ -10,12 +10,19 @@ import { Blocks } from 'react-loader-spinner';
 
 import css from './ContactsItems.module.css';
 
+
+let targetId = null
+
 export const ContactsItems = () => {
   const { data: contacts, isFetching } = useGetAllContactsQuery();
-  const [deleteContact, { isLoading: isDeleting }] =
+  const [deleteContact, { data, isLoading: isDeleting }] =
     useDeleteContactsMutation();
 
   const filter = useSelector(getFilter);
+
+  if (isDeleting) {
+    console.log("ok")
+  }
 
   let filteredContacts = [];
 
@@ -24,10 +31,13 @@ export const ContactsItems = () => {
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   }
-
+  
   const handleDeleteContact = id => {
     deleteContact(id);
+    targetId = id
   };
+
+  console.log("Deleting item", data)
 
   return (
     <>
@@ -40,12 +50,14 @@ export const ContactsItems = () => {
             {contact.phone}
             <button
               type="button"
+              disabled={isDeleting && contact.id === targetId}
               onClick={() => handleDeleteContact(contact.id)}
             >
-              {isDeleting ? 'Deleted...' : 'Delete'}
+              {isDeleting && contact.id === targetId ? 'Deleted...' : 'Delete'}
             </button>
           </li>
         ))}
     </>
   );
 };
+
