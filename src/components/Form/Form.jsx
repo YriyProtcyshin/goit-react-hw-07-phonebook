@@ -53,6 +53,7 @@ export const Form = () => {
         className={css.field}
         {...register('number', {
           required: 'Phone number is required',
+
           minLength: {
             value: 8,
             message: 'Phone number must be between 8 and 10 numbers ',
@@ -63,6 +64,7 @@ export const Form = () => {
           },
         })}
       />
+
       <p className={css.errorMessage}>{errors.number?.message}</p>
 
       <button type="submit">Add contact</button>

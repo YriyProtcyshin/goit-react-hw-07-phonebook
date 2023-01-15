@@ -2,16 +2,14 @@ import {
   useGetAllContactsQuery,
   useDeleteContactsMutation,
 } from 'redux/contactSlicer';
-
 import { useSelector } from 'react-redux';
 import { getFilter } from 'redux/selectors';
 
-import { Blocks } from 'react-loader-spinner';
+import { Blocks, LineWave } from 'react-loader-spinner';
 
 import css from './ContactsItems.module.css';
 
-
-let targetId = null
+let targetId = null;
 
 export const ContactsItems = () => {
   const { data: contacts, isFetching } = useGetAllContactsQuery();
@@ -21,7 +19,7 @@ export const ContactsItems = () => {
   const filter = useSelector(getFilter);
 
   if (isDeleting) {
-    console.log("ok")
+    console.log('ok');
   }
 
   let filteredContacts = [];
@@ -31,13 +29,13 @@ export const ContactsItems = () => {
       contact.name.toLowerCase().includes(filter.toLowerCase())
     );
   }
-  
+
   const handleDeleteContact = id => {
     deleteContact(id);
-    targetId = id
+    targetId = id;
   };
 
-  console.log("Deleting item", data)
+  console.log('Deleting item', data);
 
   return (
     <>
@@ -53,11 +51,22 @@ export const ContactsItems = () => {
               disabled={isDeleting && contact.id === targetId}
               onClick={() => handleDeleteContact(contact.id)}
             >
-              {isDeleting && contact.id === targetId ? 'Deleted...' : 'Delete'}
+              {isDeleting && contact.id === targetId ? (
+                <LineWave
+                  height="38"
+                  width="38"
+                  color="#fff"
+                  ariaLabel="line-wave"
+                  wrapperStyle={{}}
+                  wrapperClass="line-wave"
+                  visible={true}
+                />
+              ) : (
+                'Delete'
+              )}
             </button>
           </li>
         ))}
     </>
   );
 };
-
