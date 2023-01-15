@@ -39,8 +39,6 @@ export const ContactsItems = () => {
 
   return (
     <>
-      <Blocks visible={isFetching} height="60" width="60" />
-
       {contacts &&
         filteredContacts.map(contact => (
           <li key={contact.id} className={css.item}>
@@ -53,9 +51,8 @@ export const ContactsItems = () => {
             >
               {isDeleting && contact.id === targetId ? (
                 <LineWave
-                  height="38"
                   width="38"
-                  color="#fff"
+                  color="#000"
                   ariaLabel="line-wave"
                   wrapperStyle={{}}
                   wrapperClass="line-wave"
@@ -67,6 +64,13 @@ export const ContactsItems = () => {
             </button>
           </li>
         ))}
+
+      <Blocks
+        visible={isFetching}
+        height="60"
+        width="60"
+        wrapperClass="spinner"
+      />
     </>
   );
 };

@@ -18,5 +18,10 @@ code {
   margin: 0 auto;
 }
 .line-wave {
-  text-align: center;
+  padding-bottom: 5px;
+  margin-left: 5px;
+}
+.spinner {
+  display: block;
+  margin: 0 auto;
 }

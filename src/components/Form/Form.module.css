@@ -1,10 +1,11 @@
 .form {
   display: flex;
   flex-direction: column;
-  padding: 15px 15px;
+  align-items: flex-start;
+  /* padding: 15px 15px;
   box-shadow: 2px 1px 14px 0px grey;
   border: 1px solid grey;
-  border-radius: 2px;
+  border-radius: 2px; */
 }
 
 .field {
@@ -18,10 +19,8 @@
   font-size: 16px;
   color: white;
   background-color: #2586e7;
-  outline: none;
   border: none;
   cursor: pointer;
-  margin-top: 20px;
 }
 
 .inputLabel {
@@ -34,6 +33,7 @@
 .errorMessage {
   margin-top: 5px;
   color: rgb(198, 37, 37);
+  font-size: 13px;
 }
 
 [invalid='true'] {
