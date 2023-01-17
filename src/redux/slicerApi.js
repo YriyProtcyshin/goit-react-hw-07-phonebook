@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchAllContacts, addContact } from './operation';
+import { fetchAllContacts, addContact, deleteContact } from './operation';
 
 const initialState = {
   items: [],
@@ -36,6 +36,18 @@ const contactsSlice = createSlice({
       state.items.push(action.payload);
     },
     [addContact.rejected](state, action) {
+      state.error = action.payload;
+      state.isLoading = false;
+    },
+    // ------- deleteContact ---------
+    [deleteContact.pending](state, action) {
+      state.isLoading = true;
+    },
+    [deleteContact.fulfilled](state, action) {
+      state.isLoading = false;
+      state.error = null;
+    },
+    [deleteContact.rejected](state, action) {
       state.error = action.payload;
       state.isLoading = false;
     },

@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { getFilter, getContacts } from 'redux/selectors';
 import { fetchAllContacts } from 'redux/operation';
+import { deleteContact } from 'redux/operation';
 
 import { Blocks, LineWave } from 'react-loader-spinner';
 
@@ -26,10 +27,10 @@ export const ContactsItems = () => {
       return contact.name.toLowerCase().includes(filter.toLowerCase());
     });
   }
-  console.log('filteredContacts', filteredContacts);
 
   const handleDeleteContact = id => {
-    // deleteContact(id);
+    dispatch(deleteContact(id));
+    dispatch(fetchAllContacts());
     targetId = id;
   };
 
@@ -50,7 +51,6 @@ export const ContactsItems = () => {
                   width="38"
                   color="#000"
                   ariaLabel="line-wave"
-                  wrapperStyle={{}}
                   wrapperClass="line-wave"
                   visible={true}
                 />
