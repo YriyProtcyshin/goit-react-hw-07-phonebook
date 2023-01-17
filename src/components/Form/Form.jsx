@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form';
 import css from './Form.module.css';
-import {
-  useAddContactMutation,
-  useGetAllContactsQuery,
-} from 'redux/contactSlicer';
+
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import { useSelector } from 'react-redux';
 
 export const Form = () => {
-  const [addContact] = useAddContactMutation();
-  const { data } = useGetAllContactsQuery();
+  // const [addContact] = useAddContactMutation();
+  // const { data } = useGetAllContactsQuery();
+
+  const { data } = useSelector(state => state.contacts);
 
   const {
     register,
@@ -26,7 +26,7 @@ export const Form = () => {
       Notify.failure('This name alredy in contacts!');
       return;
     }
-    addContact({ name, number });
+    // addContact({ name, number });
     reset();
   };
 
