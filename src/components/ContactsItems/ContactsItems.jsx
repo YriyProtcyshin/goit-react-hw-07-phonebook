@@ -12,20 +12,22 @@ let targetId = null;
 export const ContactsItems = () => {
   const dispatch = useDispatch();
   const { items: contacts, isLoading } = useSelector(state => state.contacts);
+  // const { filter } = useSelector(state => state.filter);
+
+  const filter = '';
 
   useEffect(() => {
     dispatch(fetchAllContacts());
   }, [dispatch]);
 
-  const filter = useSelector(getFilter);
-
   let filteredContacts = [];
 
-  if (contacts.lenght) {
-    filteredContacts = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
+  if (contacts.length) {
+    filteredContacts = contacts.filter(contact => {
+      return contact.name.toLowerCase().includes(filter.toLowerCase());
+    });
   }
+  console.log('filteredContacts', filteredContacts);
 
   const handleDeleteContact = id => {
     // deleteContact(id);
@@ -34,7 +36,7 @@ export const ContactsItems = () => {
 
   return (
     <>
-      {contacts.lenght &&
+      {filteredContacts.length > 0 &&
         filteredContacts.map(contact => (
           <li key={contact.id} className={css.item}>
             <span className={css.name}>{contact.name}: </span>
