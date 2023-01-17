@@ -15,6 +15,7 @@ export const ContactsItems = () => {
   const filter = useSelector(getFilter);
 
   useEffect(() => {
+    console.log('useEffect');
     dispatch(fetchAllContacts());
   }, [dispatch, targetId]);
 
@@ -22,7 +23,6 @@ export const ContactsItems = () => {
 
   if (contacts.length) {
     filteredContacts = contacts.filter(contact => {
-      console.log(filter);
       return contact.name.toLowerCase().includes(filter.toLowerCase());
     });
   }
