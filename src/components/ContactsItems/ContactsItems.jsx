@@ -11,11 +11,7 @@ let targetId = null;
 
 export const ContactsItems = () => {
   const dispatch = useDispatch();
-  const {
-    items: contacts,
-    isLoading,
-    error,
-  } = useSelector(state => state.contacts);
+  const { items: contacts, isLoading } = useSelector(state => state.contacts);
 
   useEffect(() => {
     dispatch(fetchAllContacts());
