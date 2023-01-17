@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getFilter, getContacts } from 'redux/selectors';
 import { fetchAllContacts } from 'redux/operation';
 import { deleteContact } from 'redux/operation';
@@ -8,16 +8,15 @@ import { Blocks, LineWave } from 'react-loader-spinner';
 
 import css from './ContactsItems.module.css';
 
-let targetId = null;
-
 export const ContactsItems = () => {
   const dispatch = useDispatch();
+  const [targetId, setTargetId] = useState(null);
   const { items: contacts, isLoading } = useSelector(getContacts);
   const filter = useSelector(getFilter);
 
   useEffect(() => {
     dispatch(fetchAllContacts());
-  }, [dispatch]);
+  }, [dispatch, targetId]);
 
   let filteredContacts = [];
 
@@ -31,7 +30,7 @@ export const ContactsItems = () => {
   const handleDeleteContact = id => {
     dispatch(deleteContact(id));
     dispatch(fetchAllContacts());
-    targetId = id;
+    setTargetId(id);
   };
 
   return (
