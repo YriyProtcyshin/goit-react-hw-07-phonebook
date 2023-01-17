@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getFilter } from 'redux/selectors';
+import { getFilter, getContacts } from 'redux/selectors';
 import { fetchAllContacts } from 'redux/operation';
 
 import { Blocks, LineWave } from 'react-loader-spinner';
@@ -11,10 +11,8 @@ let targetId = null;
 
 export const ContactsItems = () => {
   const dispatch = useDispatch();
-  const { items: contacts, isLoading } = useSelector(state => state.contacts);
-  // const { filter } = useSelector(state => state.filter);
-
-  const filter = '';
+  const { items: contacts, isLoading } = useSelector(getContacts);
+  const filter = useSelector(getFilter);
 
   useEffect(() => {
     dispatch(fetchAllContacts());
@@ -24,6 +22,7 @@ export const ContactsItems = () => {
 
   if (contacts.length) {
     filteredContacts = contacts.filter(contact => {
+      console.log(filter);
       return contact.name.toLowerCase().includes(filter.toLowerCase());
     });
   }
