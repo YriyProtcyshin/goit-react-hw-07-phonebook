@@ -14,8 +14,7 @@ export const Form = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = ({ name, phone }) => {
-    console.log('sdsd');
+  const onSubmit = ({ name, number }) => {
     const searchName = data.find(
       item => item.name.toLowerCase() === name.toLowerCase()
     );
@@ -24,8 +23,7 @@ export const Form = () => {
       Notify.failure('This name alredy in contacts!');
       return;
     }
-
-    dispatch(addContact({ name, phone }));
+    dispatch(addContact({ name, number }));
     reset();
   };
 
@@ -45,7 +43,7 @@ export const Form = () => {
         type="tel"
         placeholder="Mobile number"
         className={css.field}
-        {...register('phone', {
+        {...register('number', {
           required: 'Phone number is required',
           minLength: {
             value: 8,
