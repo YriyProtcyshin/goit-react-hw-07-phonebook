@@ -1,8 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { getFilter, getContacts } from 'redux/selectors';
-import { fetchAllContacts } from 'redux/operation';
-import { deleteContact } from 'redux/operation';
+import { fetchAllContacts, deleteContact } from 'redux/operation';
 
 import { Blocks, LineWave } from 'react-loader-spinner';
 
@@ -16,7 +15,6 @@ export const ContactsItems = () => {
   const filter = useSelector(getFilter);
 
   useEffect(() => {
-    console.log('useEffect');
     dispatch(fetchAllContacts());
   }, [dispatch]);
 

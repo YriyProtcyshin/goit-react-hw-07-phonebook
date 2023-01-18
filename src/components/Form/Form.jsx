@@ -1,15 +1,12 @@
 import { useForm } from 'react-hook-form';
 import css from './Form.module.css';
-
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from 'redux/operation';
 
 export const Form = () => {
-  // const [addContact] = useAddContactMutation();
-  // const { data } = useGetAllContactsQuery();
-
-  const { data } = useSelector(state => state.contacts);
-
+  const dispatch = useDispatch();
+  const { items: data } = useSelector(state => state.contacts);
   const {
     register,
     handleSubmit,
@@ -17,7 +14,8 @@ export const Form = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = ({ name, number }) => {
+  const onSubmit = ({ name, phone }) => {
+    console.log('sdsd');
     const searchName = data.find(
       item => item.name.toLowerCase() === name.toLowerCase()
     );
@@ -26,7 +24,8 @@ export const Form = () => {
       Notify.failure('This name alredy in contacts!');
       return;
     }
-    // addContact({ name, number });
+
+    dispatch(addContact({ name, phone }));
     reset();
   };
 
@@ -46,7 +45,7 @@ export const Form = () => {
         type="tel"
         placeholder="Mobile number"
         className={css.field}
-        {...register('number', {
+        {...register('phone', {
           required: 'Phone number is required',
           minLength: {
             value: 8,

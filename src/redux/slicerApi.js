@@ -31,6 +31,7 @@ const contactsSlice = createSlice({
       state.isLoading = true;
     },
     [addContact.fulfilled](state, action) {
+      console.log('addContact', action.payload);
       state.isLoading = false;
       state.error = null;
       state.items.push(action.payload);
@@ -44,7 +45,6 @@ const contactsSlice = createSlice({
       state.isLoading = true;
     },
     [deleteContact.fulfilled](state, action) {
-      console.log('action.payload.id: ', action.payload.id);
       state.isLoading = false;
       state.error = null;
       state.items = state.items.filter(elem => elem.id !== action.payload.id);
