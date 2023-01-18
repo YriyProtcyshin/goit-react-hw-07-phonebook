@@ -11,16 +11,16 @@ import css from './ContactsItems.module.css';
 export const ContactsItems = () => {
   const dispatch = useDispatch();
   const [targetId, setTargetId] = useState(null);
+
   const { items: contacts, isLoading } = useSelector(getContacts);
   const filter = useSelector(getFilter);
 
   useEffect(() => {
     console.log('useEffect');
     dispatch(fetchAllContacts());
-  }, [dispatch, targetId]);
+  }, [dispatch]);
 
   let filteredContacts = [];
-
   if (contacts.length) {
     filteredContacts = contacts.filter(contact => {
       return contact.name.toLowerCase().includes(filter.toLowerCase());
@@ -28,9 +28,8 @@ export const ContactsItems = () => {
   }
 
   const handleDeleteContact = id => {
-    dispatch(deleteContact(id));
-    dispatch(fetchAllContacts());
     setTargetId(id);
+    dispatch(deleteContact(id));
   };
 
   return (
